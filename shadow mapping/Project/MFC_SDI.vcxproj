@@ -1,0 +1,529 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{D9430077-52C9-4AC2-9E6D-B87B876C55D2}</ProjectGuid>
+    <RootNamespace>MFC_SDI</RootNamespace>
+    <Keyword>MFCProj</Keyword>
+    <ProjectName>MFC_SDI__SHAD</ProjectName>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+    <UseOfMfc>Dynamic</UseOfMfc>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>.\Debug</OutDir>
+    <IntDir>.\Debug</IntDir>
+    <IncludePath>C:\Program Files %28x86%29\Windows Kits\10\Include\10.0.17763.0\um;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Наука\Проекты\C++\MFC\MFC_KSHADOW+KAMERA+platforma\libs;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\Наука\Проекты\BIBLIOTEKI\Opengl\include\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>glu32.lib;glut32.lib;opengl32.lib;glaux.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0419</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>F:\Наука\Программирование\Проекты\C++\MFC\MFC_SDI — 3D\libs\GL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BrowseInformation>true</BrowseInformation>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalDependencies>glu32.lib;glut32.lib;opengl32.lib;glaux.lib;legacy_stdio_definitions.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0419</Culture>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0419</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_WINDOWS;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <ValidateAllParameters>true</ValidateAllParameters>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ResourceCompile>
+      <Culture>0x0419</Culture>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\libs\AntTweakBar.h" />
+    <ClInclude Include="..\libs\glm\common.hpp" />
+    <ClInclude Include="..\libs\glm\detail\func_common.hpp" />
+    <ClInclude Include="..\libs\glm\detail\func_exponential.hpp" />
+    <ClInclude Include="..\libs\glm\detail\func_geometric.hpp" />
+    <ClInclude Include="..\libs\glm\detail\func_integer.hpp" />
+    <ClInclude Include="..\libs\glm\detail\func_matrix.hpp" />
+    <ClInclude Include="..\libs\glm\detail\func_packing.hpp" />
+    <ClInclude Include="..\libs\glm\detail\func_trigonometric.hpp" />
+    <ClInclude Include="..\libs\glm\detail\func_vector_relational.hpp" />
+    <ClInclude Include="..\libs\glm\detail\intrinsic_common.hpp" />
+    <ClInclude Include="..\libs\glm\detail\intrinsic_exponential.hpp" />
+    <ClInclude Include="..\libs\glm\detail\intrinsic_geometric.hpp" />
+    <ClInclude Include="..\libs\glm\detail\intrinsic_integer.hpp" />
+    <ClInclude Include="..\libs\glm\detail\intrinsic_matrix.hpp" />
+    <ClInclude Include="..\libs\glm\detail\intrinsic_trigonometric.hpp" />
+    <ClInclude Include="..\libs\glm\detail\intrinsic_vector_relational.hpp" />
+    <ClInclude Include="..\libs\glm\detail\precision.hpp" />
+    <ClInclude Include="..\libs\glm\detail\setup.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_float.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_gentype.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_half.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_int.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_mat.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_mat2x2.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_mat2x3.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_mat2x4.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_mat3x2.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_mat3x3.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_mat3x4.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_mat4x2.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_mat4x3.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_mat4x4.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_vec.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_vec1.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_vec2.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_vec3.hpp" />
+    <ClInclude Include="..\libs\glm\detail\type_vec4.hpp" />
+    <ClInclude Include="..\libs\glm\detail\_features.hpp" />
+    <ClInclude Include="..\libs\glm\detail\_fixes.hpp" />
+    <ClInclude Include="..\libs\glm\detail\_noise.hpp" />
+    <ClInclude Include="..\libs\glm\detail\_swizzle.hpp" />
+    <ClInclude Include="..\libs\glm\detail\_swizzle_func.hpp" />
+    <ClInclude Include="..\libs\glm\detail\_vectorize.hpp" />
+    <ClInclude Include="..\libs\glm\exponential.hpp" />
+    <ClInclude Include="..\libs\glm\ext.hpp" />
+    <ClInclude Include="..\libs\glm\fwd.hpp" />
+    <ClInclude Include="..\libs\glm\geometric.hpp" />
+    <ClInclude Include="..\libs\glm\glm.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\bitfield.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\color_space.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\constants.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\epsilon.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\integer.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\matrix_access.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\matrix_integer.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\matrix_inverse.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\matrix_transform.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\noise.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\packing.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\quaternion.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\random.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\reciprocal.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\round.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\type_precision.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\type_ptr.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\ulp.hpp" />
+    <ClInclude Include="..\libs\glm\gtc\vec1.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\associated_min_max.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\bit.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\closest_point.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\color_space.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\color_space_YCoCg.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\common.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\compatibility.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\component_wise.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\dual_quaternion.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\euler_angles.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\extend.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\extented_min_max.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\fast_exponential.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\fast_square_root.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\fast_trigonometry.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\gradient_paint.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\handed_coordinate_space.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\hash.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\integer.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\intersect.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\io.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\log_base.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\matrix_cross_product.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\matrix_decompose.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\matrix_interpolation.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\matrix_major_storage.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\matrix_operation.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\matrix_query.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\matrix_transform_2d.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\mixed_product.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\norm.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\normal.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\normalize_dot.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\number_precision.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\optimum_pow.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\orthonormalize.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\perpendicular.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\polar_coordinates.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\projection.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\quaternion.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\range.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\raw_data.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\rotate_normalized_axis.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\rotate_vector.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\scalar_multiplication.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\scalar_relational.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\simd_mat4.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\simd_quat.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\simd_vec4.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\spline.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\std_based_type.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\string_cast.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\transform.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\transform2.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\type_aligned.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\vector_angle.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\vector_query.hpp" />
+    <ClInclude Include="..\libs\glm\gtx\wrap.hpp" />
+    <ClInclude Include="..\libs\glm\integer.hpp" />
+    <ClInclude Include="..\libs\glm\mat2x2.hpp" />
+    <ClInclude Include="..\libs\glm\mat2x3.hpp" />
+    <ClInclude Include="..\libs\glm\mat2x4.hpp" />
+    <ClInclude Include="..\libs\glm\mat3x2.hpp" />
+    <ClInclude Include="..\libs\glm\mat3x3.hpp" />
+    <ClInclude Include="..\libs\glm\mat3x4.hpp" />
+    <ClInclude Include="..\libs\glm\mat4x2.hpp" />
+    <ClInclude Include="..\libs\glm\mat4x3.hpp" />
+    <ClInclude Include="..\libs\glm\mat4x4.hpp" />
+    <ClInclude Include="..\libs\glm\matrix.hpp" />
+    <ClInclude Include="..\libs\glm\packing.hpp" />
+    <ClInclude Include="..\libs\glm\trigonometric.hpp" />
+    <ClInclude Include="..\libs\glm\vec2.hpp" />
+    <ClInclude Include="..\libs\glm\vec3.hpp" />
+    <ClInclude Include="..\libs\glm\vec4.hpp" />
+    <ClInclude Include="..\libs\glm\vector_relational.hpp" />
+    <ClInclude Include="..\libs\GL\eglew.h" />
+    <ClInclude Include="..\libs\GL\freeglut.h" />
+    <ClInclude Include="..\libs\GL\freeglut_ext.h" />
+    <ClInclude Include="..\libs\GL\freeglut_std.h" />
+    <ClInclude Include="..\libs\GL\GLAux.h" />
+    <ClInclude Include="..\libs\GL\glew.h" />
+    <ClInclude Include="..\libs\GL\GLEXT.H" />
+    <ClInclude Include="..\libs\GL\glut.h" />
+    <ClInclude Include="..\libs\GL\glxew.h" />
+    <ClInclude Include="..\libs\GL\wglew.h" />
+    <ClInclude Include="..\libs\GL\WGLEXT.H" />
+    <ClInclude Include="..\libs\IL\il.h" />
+    <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="MFC_SDI.h" />
+    <ClInclude Include="MFC_SDIDoc.h" />
+    <ClInclude Include="MFC_SDIView.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="Kamera.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\libs\glm\detail\dummy.cpp" />
+    <ClCompile Include="..\libs\glm\detail\glm.cpp" />
+    <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="MFC_SDI.cpp" />
+    <ClCompile Include="MFC_SDIDoc.cpp" />
+    <ClCompile Include="MFC_SDIView.cpp" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="MFC_SDI.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\libs\glm\detail\func_common.inl" />
+    <None Include="..\libs\glm\detail\func_exponential.inl" />
+    <None Include="..\libs\glm\detail\func_geometric.inl" />
+    <None Include="..\libs\glm\detail\func_integer.inl" />
+    <None Include="..\libs\glm\detail\func_matrix.inl" />
+    <None Include="..\libs\glm\detail\func_packing.inl" />
+    <None Include="..\libs\glm\detail\func_trigonometric.inl" />
+    <None Include="..\libs\glm\detail\func_vector_relational.inl" />
+    <None Include="..\libs\glm\detail\intrinsic_common.inl" />
+    <None Include="..\libs\glm\detail\intrinsic_exponential.inl" />
+    <None Include="..\libs\glm\detail\intrinsic_geometric.inl" />
+    <None Include="..\libs\glm\detail\intrinsic_integer.inl" />
+    <None Include="..\libs\glm\detail\intrinsic_matrix.inl" />
+    <None Include="..\libs\glm\detail\intrinsic_trigonometric.inl" />
+    <None Include="..\libs\glm\detail\intrinsic_vector_relational.inl" />
+    <None Include="..\libs\glm\detail\type_gentype.inl" />
+    <None Include="..\libs\glm\detail\type_half.inl" />
+    <None Include="..\libs\glm\detail\type_mat.inl" />
+    <None Include="..\libs\glm\detail\type_mat2x2.inl" />
+    <None Include="..\libs\glm\detail\type_mat2x3.inl" />
+    <None Include="..\libs\glm\detail\type_mat2x4.inl" />
+    <None Include="..\libs\glm\detail\type_mat3x2.inl" />
+    <None Include="..\libs\glm\detail\type_mat3x3.inl" />
+    <None Include="..\libs\glm\detail\type_mat3x4.inl" />
+    <None Include="..\libs\glm\detail\type_mat4x2.inl" />
+    <None Include="..\libs\glm\detail\type_mat4x3.inl" />
+    <None Include="..\libs\glm\detail\type_mat4x4.inl" />
+    <None Include="..\libs\glm\detail\type_vec.inl" />
+    <None Include="..\libs\glm\detail\type_vec1.inl" />
+    <None Include="..\libs\glm\detail\type_vec2.inl" />
+    <None Include="..\libs\glm\detail\type_vec3.inl" />
+    <None Include="..\libs\glm\detail\type_vec4.inl" />
+    <None Include="..\libs\glm\detail\type_vec4_avx.inl" />
+    <None Include="..\libs\glm\detail\type_vec4_avx2.inl" />
+    <None Include="..\libs\glm\detail\type_vec4_sse2.inl" />
+    <None Include="..\libs\glm\gtc\bitfield.inl" />
+    <None Include="..\libs\glm\gtc\color_space.inl" />
+    <None Include="..\libs\glm\gtc\constants.inl" />
+    <None Include="..\libs\glm\gtc\epsilon.inl" />
+    <None Include="..\libs\glm\gtc\integer.inl" />
+    <None Include="..\libs\glm\gtc\matrix_access.inl" />
+    <None Include="..\libs\glm\gtc\matrix_inverse.inl" />
+    <None Include="..\libs\glm\gtc\matrix_transform.inl" />
+    <None Include="..\libs\glm\gtc\noise.inl" />
+    <None Include="..\libs\glm\gtc\packing.inl" />
+    <None Include="..\libs\glm\gtc\quaternion.inl" />
+    <None Include="..\libs\glm\gtc\random.inl" />
+    <None Include="..\libs\glm\gtc\reciprocal.inl" />
+    <None Include="..\libs\glm\gtc\round.inl" />
+    <None Include="..\libs\glm\gtc\type_precision.inl" />
+    <None Include="..\libs\glm\gtc\type_ptr.inl" />
+    <None Include="..\libs\glm\gtc\ulp.inl" />
+    <None Include="..\libs\glm\gtc\vec1.inl" />
+    <None Include="..\libs\glm\gtx\associated_min_max.inl" />
+    <None Include="..\libs\glm\gtx\bit.inl" />
+    <None Include="..\libs\glm\gtx\closest_point.inl" />
+    <None Include="..\libs\glm\gtx\color_space.inl" />
+    <None Include="..\libs\glm\gtx\color_space_YCoCg.inl" />
+    <None Include="..\libs\glm\gtx\common.inl" />
+    <None Include="..\libs\glm\gtx\compatibility.inl" />
+    <None Include="..\libs\glm\gtx\component_wise.inl" />
+    <None Include="..\libs\glm\gtx\dual_quaternion.inl" />
+    <None Include="..\libs\glm\gtx\euler_angles.inl" />
+    <None Include="..\libs\glm\gtx\extend.inl" />
+    <None Include="..\libs\glm\gtx\extented_min_max.inl" />
+    <None Include="..\libs\glm\gtx\fast_exponential.inl" />
+    <None Include="..\libs\glm\gtx\fast_square_root.inl" />
+    <None Include="..\libs\glm\gtx\fast_trigonometry.inl" />
+    <None Include="..\libs\glm\gtx\gradient_paint.inl" />
+    <None Include="..\libs\glm\gtx\handed_coordinate_space.inl" />
+    <None Include="..\libs\glm\gtx\hash.inl" />
+    <None Include="..\libs\glm\gtx\integer.inl" />
+    <None Include="..\libs\glm\gtx\intersect.inl" />
+    <None Include="..\libs\glm\gtx\io.inl" />
+    <None Include="..\libs\glm\gtx\log_base.inl" />
+    <None Include="..\libs\glm\gtx\matrix_cross_product.inl" />
+    <None Include="..\libs\glm\gtx\matrix_decompose.inl" />
+    <None Include="..\libs\glm\gtx\matrix_interpolation.inl" />
+    <None Include="..\libs\glm\gtx\matrix_major_storage.inl" />
+    <None Include="..\libs\glm\gtx\matrix_operation.inl" />
+    <None Include="..\libs\glm\gtx\matrix_query.inl" />
+    <None Include="..\libs\glm\gtx\matrix_transform_2d.inl" />
+    <None Include="..\libs\glm\gtx\mixed_product.inl" />
+    <None Include="..\libs\glm\gtx\norm.inl" />
+    <None Include="..\libs\glm\gtx\normal.inl" />
+    <None Include="..\libs\glm\gtx\normalize_dot.inl" />
+    <None Include="..\libs\glm\gtx\number_precision.inl" />
+    <None Include="..\libs\glm\gtx\optimum_pow.inl" />
+    <None Include="..\libs\glm\gtx\orthonormalize.inl" />
+    <None Include="..\libs\glm\gtx\perpendicular.inl" />
+    <None Include="..\libs\glm\gtx\polar_coordinates.inl" />
+    <None Include="..\libs\glm\gtx\projection.inl" />
+    <None Include="..\libs\glm\gtx\quaternion.inl" />
+    <None Include="..\libs\glm\gtx\raw_data.inl" />
+    <None Include="..\libs\glm\gtx\rotate_normalized_axis.inl" />
+    <None Include="..\libs\glm\gtx\rotate_vector.inl" />
+    <None Include="..\libs\glm\gtx\scalar_relational.inl" />
+    <None Include="..\libs\glm\gtx\simd_mat4.inl" />
+    <None Include="..\libs\glm\gtx\simd_quat.inl" />
+    <None Include="..\libs\glm\gtx\simd_vec4.inl" />
+    <None Include="..\libs\glm\gtx\spline.inl" />
+    <None Include="..\libs\glm\gtx\std_based_type.inl" />
+    <None Include="..\libs\glm\gtx\string_cast.inl" />
+    <None Include="..\libs\glm\gtx\transform.inl" />
+    <None Include="..\libs\glm\gtx\transform2.inl" />
+    <None Include="..\libs\glm\gtx\type_aligned.inl" />
+    <None Include="..\libs\glm\gtx\vector_angle.inl" />
+    <None Include="..\libs\glm\gtx\vector_query.inl" />
+    <None Include="..\libs\glm\gtx\wrap.inl" />
+    <None Include="ClassDiagram.cd" />
+    <None Include="packages.config" />
+    <None Include="res\MFC_SDI.rc2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\123.bmp" />
+    <Image Include="res\13.ico" />
+    <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\bitmap2.bmp" />
+    <Image Include="res\bitmap3.bmp" />
+    <Image Include="res\clock.ico" />
+    <Image Include="res\icon0.ico" />
+    <Image Include="res\icon1.ico" />
+    <Image Include="res\icon2.ico" />
+    <Image Include="res\MFC_SDI.ico" />
+    <Image Include="res\MFC_SDIDoc.ico" />
+    <Image Include="res\timer_1225.ico" />
+    <Image Include="res\Toolbar.bmp" />
+    <Image Include="res\таймер1.bmp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\freeglut.redist.2.8.1.15\build\native\freeglut.redist.targets" Condition="Exists('..\packages\freeglut.redist.2.8.1.15\build\native\freeglut.redist.targets')" />
+    <Import Project="..\packages\freeglut.2.8.1.15\build\native\freeglut.targets" Condition="Exists('..\packages\freeglut.2.8.1.15\build\native\freeglut.targets')" />
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="MFC_SDI.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\freeglut.redist.2.8.1.15\build\native\freeglut.redist.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\freeglut.redist.2.8.1.15\build\native\freeglut.redist.targets'))" />
+    <Error Condition="!Exists('..\packages\freeglut.2.8.1.15\build\native\freeglut.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\freeglut.2.8.1.15\build\native\freeglut.targets'))" />
+  </Target>
+</Project>
