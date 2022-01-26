@@ -21,23 +21,31 @@ mat4 lightMatrixView;
 mat4 camMatrixProj;
 mat4 camMatrixView;
 
-void genShadMapTexture(){
+void setTextureParamsNear(GLenum mode, GLenum pnam){
+    glTexParameteri(mode, pnam, GL_NEAREST);
+}
+
+void setTextureParamsClamp(GLenum mode, GLenum pnam){
+    glTexParameteri(mode, pnam, GL_CLAMP);
+}
+
+void genShadMapTexture(GLenum mode){
     glGenTextures(1, &shadowTexture);
-    glBindTexture(GL_TEXTURE_2D, shadowTexture);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, shadowBuffer, shadowBuffer, 0,
+    glBindTexture(mode, shadowTexture);
+    glTexImage2D(mode, 0, GL_DEPTH_COMPONENT, shadowBuffer, shadowBuffer, 0,
                     GL_DEPTH_COMPONENT, GL_UNSIGNED_BYTE, NULL);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+    setTextureParamsNear(mode, GL_TEXTURE_MIN_FILTER);
+    setTextureParamsNear(mode, GL_TEXTURE_MAG_FILTER);
+    setTextureParamsClamp(mode, GL_TEXTURE_WRAP_S);
+    setTextureParamsClamp(mode, GL_TEXTURE_WRAP_T);
     glEnable(GL_COLOR_MATERIAL);
 }
 
 void makeCameraView(){
     glLoadIdentity();
-    gluPerspective(45.0f, (float)width/height, 1.0f, 100.0f);
+    float aspect = (float) width / height;
+    gluPerspective(45.0f, aspect, 1.0f, 100.0f);
     glGetFloatv(GL_MODELVIEW_MATRIX, camMatrixProj);
-
     glLoadIdentity();
     gluLookAt(eyeX, eyeY, eyeZ,
                 centerX, centerY,  centerZ,
@@ -49,7 +57,6 @@ void makeLightView(){
     glLoadIdentity();
     gluPerspective(45.0f, 1.0f, 2.0f, 8.0f);
     glGetFloatv(GL_MODELVIEW_MATRIX, lightMatrixProj);
-
     glLoadIdentity();
     gluLookAt(light.x, light.y, light.z,
                 0.0f, 0.0f, 0.0f,
@@ -66,7 +73,9 @@ void makeDepthTest(){
 }
 
 bool initialize(){
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitDisplayMode(GLUT_DOUBLE
+                        | GLUT_RGB |
+                        GLUT_DEPTH);
     glutInitWindowSize(600, 500);
     glutCreateWindow("Shadow Mapping");
     glMatrixMode(GL_MODELVIEW);
@@ -75,7 +84,7 @@ bool initialize(){
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
     makeDepthTest();
-    genShadMapTexture();
+    genShadMapTexture(GL_TEXTURE_2D);
     glPushMatrix();
     makeCameraView();
     makeLightView();
@@ -123,80 +132,99 @@ void drawFigure(){
     glPopMatrix();
 }
 
+void loadmatr(GLenum mode, GLfloat *m){
+    glMatrixMode(mode);
+    glLoadMatrixf(m);
+}
+
 void makeLightPoint(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glMatrixMode(GL_PROJECTION);
-    glLoadMatrixf(lightMatrixProj);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadMatrixf(lightMatrixView);
+    loadmatr(GL_PROJECTION, lightMatrixProj);
+    loadmatr(GL_MODELVIEW, lightMatrixView);
+}
+
+void setLightfv(GLenum pname, GLfloat *p){
+    glLightfv(GL_LIGHT1, pname, p);
 }
 
 void drawFromCamer(){
     glClear(GL_DEPTH_BUFFER_BIT);
-    glMatrixMode(GL_PROJECTION);
-    glLoadMatrixf(camMatrixProj);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadMatrixf(camMatrixView);
+    loadmatr(GL_PROJECTION, camMatrixProj);
+    loadmatr(GL_MODELVIEW, camMatrixView);
     glViewport(0, 0, width, height);
-    glLightfv(GL_LIGHT1, GL_POSITION, vec4(light));
-    glLightfv(GL_LIGHT1, GL_DIFFUSE, white * 0.2f);
+    setLightfv(GL_POSITION, vec4(light));
+    setLightfv(GL_DIFFUSE, white * 0.2f);
     glEnable(GL_LIGHT1);
     glEnable(GL_LIGHTING);
     drawFigure();
 }
 
-void buildShadows(){
-    glLightfv(GL_LIGHT1, GL_DIFFUSE, white);
-    glLightfv(GL_LIGHT1, GL_SPECULAR, white);
+mat4 makeDepthMatrix(){
     mat4 depthMatrix(0.5f, 0.0f, 0.0f, 0.0f,
-                                0.0f, 0.5f, 0.0f, 0.0f,
-                                0.0f, 0.0f, 0.5f, 0.0f,
-                                0.5f, 0.5f, 0.5f, 1.0f);
-    mat4 shadowMatrix = depthMatrix * lightMatrixProj * lightMatrixView;
-    glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-    glTexGenfv(GL_S, GL_EYE_PLANE, shadowMatrix.GetRow(0));
-    glEnable(GL_TEXTURE_GEN_S);
-    glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-    glTexGenfv(GL_T, GL_EYE_PLANE, shadowMatrix.GetRow(1));
-    glEnable(GL_TEXTURE_GEN_T);
-    glTexGeni(GL_R, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-    glTexGenfv(GL_R, GL_EYE_PLANE, shadowMatrix.GetRow(2));
-    glEnable(GL_TEXTURE_GEN_R);
-    glTexGeni(GL_Q, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
-    glTexGenfv(GL_Q, GL_EYE_PLANE, shadowMatrix.GetRow(3));
-    glEnable(GL_TEXTURE_GEN_Q);
-    glBindTexture(GL_TEXTURE_2D, shadowTexture);
-    glEnable(GL_TEXTURE_2D);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_COMPARE_FUNC_ARB, GL_LEQUAL);
-    glTexParameteri(GL_TEXTURE_2D, GL_DEPTH_TEXTURE_MODE_ARB, GL_INTENSITY);
+                       0.0f, 0.5f, 0.0f, 0.0f,
+                       0.0f, 0.0f, 0.5f, 0.0f,
+                       0.5f, 0.5f, 0.5f, 1.0f);;
+    return depthMatrix * lightMatrixProj * lightMatrixView;
+}
+
+void makeTextureCoord(GLenum coord, mat4x4 shadowMatrix,
+                      int n, GLenum cap){
+    glTexGeni(coord, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+    glTexGenfv(coord, GL_EYE_PLANE, shadowMatrix.GetRow(n));
+    glEnable(cap);
+}
+
+void setTextureParams(GLenum mode, GLenum pnam, GLint param){
+    glTexParameteri(mode, pnam, param);
+}
+
+void buildShadows(GLenum mode){
+    setLightfv(GL_DIFFUSE, white);
+    setLightfv(GL_SPECULAR, white);
+    mat4 shadowMatrix = makeDepthMatrix();
+    makeTextureCoord(GL_S, shadowMatrix, 0, GL_TEXTURE_GEN_S);
+    makeTextureCoord(GL_T, shadowMatrix, 1, GL_TEXTURE_GEN_T);
+    makeTextureCoord(GL_R, shadowMatrix, 2, GL_TEXTURE_GEN_R);
+    makeTextureCoord(GL_Q, shadowMatrix, 3, GL_TEXTURE_GEN_Q);
+    glBindTexture(mode, shadowTexture);
+    glEnable(mode);
+    setTextureParams(mode, GL_TEXTURE_COMPARE_MODE_ARB, GL_COMPARE_R_TO_TEXTURE);
+    setTextureParams(mode, GL_TEXTURE_COMPARE_FUNC_ARB, GL_LEQUAL);
+    setTextureParams(mode, GL_DEPTH_TEXTURE_MODE_ARB, GL_INTENSITY);
     glAlphaFunc(GL_GEQUAL, 0.99f);
     glEnable(GL_ALPHA_TEST);
     drawFigure();
 }
 
+void setShadeModel(GLenum mode, GLenum type){
+    glCullFace(mode);
+    glShadeModel(type);
+}
+
+void makeDisable(GLenum cap){
+    glDisable(cap);
+}
+
 void render(){
+    GLenum mode = GL_TEXTURE_2D;
     makeLightPoint();
     glViewport(0, 0, shadowBuffer, shadowBuffer);
-    glCullFace(GL_FRONT);
-    glShadeModel(GL_FLAT);
+    setShadeModel(GL_FRONT, GL_FLAT);
     glColorMask(0, 0, 0, 0);
     drawFigure();
-    glBindTexture(GL_TEXTURE_2D, shadowTexture);
-    glCopyTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, 0, 0,
+    glBindTexture(mode, shadowTexture);
+    glCopyTexSubImage2D(mode, 0, 0, 0, 0, 0,
                         shadowBuffer, shadowBuffer);
-    glCullFace(GL_BACK);
-    glShadeModel(GL_SMOOTH);
+    setShadeModel(GL_BACK, GL_SMOOTH);
     glColorMask(1, 1, 1, 1);
     drawFromCamer();
-    buildShadows();
-    glDisable(GL_TEXTURE_2D);
-    glDisable(GL_TEXTURE_GEN_S);
-    glDisable(GL_TEXTURE_GEN_T);
-    glDisable(GL_TEXTURE_GEN_R);
-    glDisable(GL_TEXTURE_GEN_Q);
-    glDisable(GL_LIGHTING);
-    glDisable(GL_ALPHA_TEST);
+    buildShadows(mode);
+    makeDisable(GL_TEXTURE_GEN_S);
+    makeDisable(GL_TEXTURE_GEN_T);
+    makeDisable(GL_TEXTURE_GEN_R);
+    makeDisable(GL_TEXTURE_GEN_Q);
+    makeDisable(GL_LIGHTING);
+    makeDisable(GL_ALPHA_TEST);
     glFinish();
     glutSwapBuffers();
     glutPostRedisplay();
@@ -208,7 +236,8 @@ void resize(int w, int h) {
     height = h;
     glPushMatrix();
     glLoadIdentity();
-    gluPerspective(45.0f, (float) width / height, 1.0f, 100.0f);
+    float aspect = (float) width / height;
+    gluPerspective(45.0f, aspect, 1.0f, 100.0f);
     glGetFloatv(GL_MODELVIEW_MATRIX, camMatrixProj);
     glPopMatrix();
 }
