@@ -151,7 +151,7 @@ void buildShadows(){
     static mat4x4 depthMatrix(0.5f, 0.0f, 0.0f, 0.0f,
                                 0.0f, 0.5f, 0.0f, 0.0f,
                                 0.0f, 0.0f, 0.5f, 0.0f,
-                                0.5f, 0.5f, 0.5f, 1.0f);    //bias from [-1, 1] to [0, 1]
+                                0.5f, 0.5f, 0.5f, 1.0f);
     mat4x4 shadowMatrix = depthMatrix * lightMatrixProj * lightMatrixView;
     glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
     glTexGenfv(GL_S, GL_EYE_PLANE, shadowMatrix.GetRow(0));
