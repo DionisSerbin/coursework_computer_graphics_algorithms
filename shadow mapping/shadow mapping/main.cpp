@@ -16,10 +16,10 @@ float upZ = 0.0f;
 const int shadowBuffer = 512;
 GLuint shadowTexture;
 vec3 light(2.0f, 2.6f,-2.0f);
-mat4x4 lightMatrixProj;
-mat4x4 lightMatrixView;
-mat4x4 camMatrixProj;
-mat4x4 camMatrixView;
+mat4 lightMatrixProj;
+mat4 lightMatrixView;
+mat4 camMatrixProj;
+mat4 camMatrixView;
 
 void genShadMapTexture(){
     glGenTextures(1, &shadowTexture);
@@ -148,11 +148,11 @@ void drawFromCamer(){
 void buildShadows(){
     glLightfv(GL_LIGHT1, GL_DIFFUSE, white);
     glLightfv(GL_LIGHT1, GL_SPECULAR, white);
-    static mat4x4 depthMatrix(0.5f, 0.0f, 0.0f, 0.0f,
+    mat4 depthMatrix(0.5f, 0.0f, 0.0f, 0.0f,
                                 0.0f, 0.5f, 0.0f, 0.0f,
                                 0.0f, 0.0f, 0.5f, 0.0f,
                                 0.5f, 0.5f, 0.5f, 1.0f);
-    mat4x4 shadowMatrix = depthMatrix * lightMatrixProj * lightMatrixView;
+    mat4 shadowMatrix = depthMatrix * lightMatrixProj * lightMatrixView;
     glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
     glTexGenfv(GL_S, GL_EYE_PLANE, shadowMatrix.GetRow(0));
     glEnable(GL_TEXTURE_GEN_S);
