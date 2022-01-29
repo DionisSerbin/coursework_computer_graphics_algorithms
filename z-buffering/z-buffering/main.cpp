@@ -4,19 +4,21 @@
 #include <string.h>
 #include <vector>
 
-float left[1000];
-float right[1000];
-float z_buff[1000][1000];
+#define bufferSize 1000
+float left[bufferSize];
+float right[bufferSize];
+float z_buff[bufferSize][bufferSize];
 void zbuffer();
 
+
 void initialize(){
-    glutInitWindowSize(1000,1000);
+    glutInitWindowSize(bufferSize,bufferSize);
     glutCreateWindow("Z-buffering");
     glClearColor(0.0,0.0,0.0,1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    gluOrtho2D(0,1000,0,1000);
+    gluOrtho2D(0,bufferSize,0,bufferSize);
     glFlush();
 }
 
@@ -27,7 +29,7 @@ void render(int v){
 
 void screen(){
     glutCreateMenu(render);
-    glutAddMenuEntry("Z-Buffer",1);
+    glutAddMenuEntry("ZBuff",1);
     glutAttachMenu(GLUT_LEFT_BUTTON);
 }
 
@@ -83,11 +85,30 @@ void calcOfNearZ(float firstTop[],float secondTop[]){
     }
     x = near[0];
     for (i = near[1]; i <= far[1]; i++) {
-        if(x<left[i])
-            left[i]=x;
-        if(x>right[i])
-            right[i]=x;
-        x+=m;
+        if(x < left[i])
+            left[i] = x;
+        if(x > right[i])
+            right[i] = x;
+        x += m;
+    }
+}
+
+void comparedepth(float a[],float b[],float c[],float d[]){
+    for(int i = 0; i < bufferSize; i++){
+        left[i] = bufferSize;
+        right[i] = 0;
+    }
+    calcOfNearZ(a, b);
+    calcOfNearZ(b, c);
+    calcOfNearZ(c, d);
+    calcOfNearZ(d, a);
+    for(int i = 0; i < bufferSize; i++){
+        if(left[i] <= right[i]){
+            for(int j = left[i]; j <= right[i]; j++){
+                if(z_buff[j][i] < a[2])
+                    z_buff[j][i] = a[2];
+            }
+        }
     }
 }
 
@@ -107,58 +128,12 @@ void zbuffer(){
     drawFigure(fig1_1,fig1_2,fig1_3,fig1_4);
     drawFigure(fig2_1,fig2_2,fig2_3,fig2_4);
     drawFigure(fig3_1,fig3_2,fig3_3,fig3_4);
-    for(int i = 0; i < 1000; i++)
-        for(int j = 0; j < 1000; j++)
+    for(int i = 0; i < bufferSize; i++)
+        for(int j = 0; j < bufferSize; j++)
             z_buff[i][j] = 0;
-    for(int i = 0; i < 1000; i++){
-        left[i] = 1000;
-        right[i] = 0;
-    }
-    calcOfNearZ(fig1_1,fig1_2);
-    calcOfNearZ(fig1_2,fig1_3);
-    calcOfNearZ(fig1_3,fig1_4);
-    calcOfNearZ(fig1_4,fig1_1);
-    for(int i = 0; i < 1000; i++){
-        if(left[i] <= right[i]){
-            for(int j = left[i]; j <= right[i]; j++){
-                if(z_buff[j][i] < fig1_1[2])
-                    z_buff[j][i] = fig1_1[2];
-            }
-        }
-    }
-    for(int i = 0; i < 1000; i++){
-        left[i] = 1000;
-        right[i] = 0;
-    }
-    calcOfNearZ(fig2_1,fig2_2);
-    calcOfNearZ(fig2_2,fig2_3);
-    calcOfNearZ(fig2_3,fig2_4);
-    calcOfNearZ(fig2_4,fig2_1);
-    for(int i = 0; i < 1000; i++){
-        if(left[i] <= right[i]){
-            for(int j = left[i]; j <= right[i]; j++){
-                if(z_buff[j][i] < fig2_1[2])
-                    z_buff[j][i] = fig2_1[2];
-            }
-        }
-    }
-    for(int i = 0; i < 1000; i++){
-        left[i] = 1000;
-        right[i] = 0;
-    }
-    calcOfNearZ(fig3_1,fig3_2);
-    calcOfNearZ(fig3_2,fig3_3);
-    calcOfNearZ(fig3_3,fig3_4);
-    calcOfNearZ(fig3_4,fig3_1);
-    for(int i = 0; i < 1000; i++){
-        if(left[i] <= right[i]){
-            for(int j = left[i]; j <= right[i]; j++){
-                if(z_buff[j][i] < fig3_1[2])
-                    z_buff[j][i] = fig3_1[2];
-            }
-        }
-    }
-    
+    comparedepth(fig1_1,fig1_2,fig1_3,fig1_4);
+    comparedepth(fig2_1,fig2_2,fig2_3,fig2_4);
+    comparedepth(fig3_1,fig3_2,fig3_3,fig3_4);
     for(int i= 395; i < 605; i++)
         for(int j = 395; j < 602; j++)
             depthPaint(i,j,z_buff[i][j]);
