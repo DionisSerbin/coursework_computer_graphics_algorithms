@@ -1,25 +1,35 @@
 #define GL_SILENCE_DEPRECATION
 #include <GLUT/GLUT.h>
+#include "Maths.h"
 #include <iostream>
 #include <GLFW/glfw3.h>
-#include <glm/glm.h>
-int width, height;
+#include "glm/glm.hpp"
+#define shadowBuffer 512
+#define width 600
+#define height 500
 float centerX = 0.0f;
 float centerZ = 0.0f;
 float centerY = 0.0;
 float eyeX = 0.0f;
-float eyeZ = -1.5f;
+float eyeZ = -2.5f;
 float eyeY = 0.8;
 float upX = 0.0f;
 float upY = 1.0f;
 float upZ = 0.0f;
-const int shadowBuffer = 512;
 GLuint shadowTexture;
-vec3 light(2.0f, 2.6f,-2.0f);
-mat4 lightMatrixProj;
-mat4 lightMatrixView;
-mat4 camMatrixProj;
-mat4 camMatrixView;
+float lightCenterX = 2.0f;
+float lightCenterY = 2.5f;
+float lightCenterZ = -2.0f;
+float lightEyeX = 0.0f;
+float lightEyeY = 0.0f;
+float lightEyeZ = 0.0f;
+float lightUpX = 0.0f;
+float lightUpY = 1.0f;
+float lightUpZ = 0.0f;
+glm::mat4 lightMatrixProj;
+glm::mat4 lightMatrixView;
+glm::mat4 camMatrixProj;
+glm::mat4 camMatrixView;
 
 void setTextureParamsNear(GLenum mode, GLenum pnam){
     glTexParameteri(mode, pnam, GL_NEAREST);
@@ -49,7 +59,7 @@ void makeCameraView(){
     glLoadIdentity();
     gluLookAt(eyeX, eyeY, eyeZ,
                 centerX, centerY,  centerZ,
-                0.0f, 1.0f,  0.0f);
+                upX, upY,  upZ);
     glGetFloatv(GL_MODELVIEW_MATRIX, camMatrixView);
 }
 
@@ -58,9 +68,9 @@ void makeLightView(){
     gluPerspective(45.0f, 1.0f, 2.0f, 8.0f);
     glGetFloatv(GL_MODELVIEW_MATRIX, lightMatrixProj);
     glLoadIdentity();
-    gluLookAt(light.x, light.y, light.z,
-                0.0f, 0.0f, 0.0f,
-                0.0f, 1.0f, 0.0f);
+    gluLookAt(lightCenterX, lightCenterY, lightCenterZ,
+                lightEyeX, lightEyeY, lightEyeZ,
+                lightUpX, lightUpY, lightUpZ);
     glGetFloatv(GL_MODELVIEW_MATRIX, lightMatrixView);
 }
 
@@ -152,22 +162,22 @@ void drawFromCamer(){
     loadmatr(GL_PROJECTION, camMatrixProj);
     loadmatr(GL_MODELVIEW, camMatrixView);
     glViewport(0, 0, width, height);
-    setLightfv(GL_POSITION, vec4(light));
-    setLightfv(GL_DIFFUSE, white * 0.2f);
+    setLightfv(GL_POSITION, glm::vec4(glm::vec3(lightCenterX, lightCenterY, lightCenterZ)));
+    setLightfv(GL_DIFFUSE, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f) * 0.5f);
     glEnable(GL_LIGHT1);
     glEnable(GL_LIGHTING);
     drawFigure();
 }
 
-mat4 makeDepthMatrix(){
-    mat4 depthMatrix(0.5f, 0.0f, 0.0f, 0.0f,
-                       0.0f, 0.5f, 0.0f, 0.0f,
-                       0.0f, 0.0f, 0.5f, 0.0f,
-                       0.5f, 0.5f, 0.5f, 1.0f);;
-    return depthMatrix * lightMatrixProj * lightMatrixView;
+glm::mat4 projMatrix(float projValue){
+    glm::mat4 projMatrix(projValue, 0.0f, 0.0f, 0.0f,
+                       0.0f, projValue, 0.0f, 0.0f,
+                       0.0f, 0.0f, projValue, 0.0f,
+                    projValue, projValue, projValue, projValue * 2);;
+    return projMatrix * lightMatrixProj * lightMatrixView;
 }
 
-void makeTextureCoord(GLenum coord, mat4x4 shadowMatrix,
+void makeTextureCoord(GLenum coord, mat4 shadowMatrix,
                       int n, GLenum cap){
     glTexGeni(coord, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
     glTexGenfv(coord, GL_EYE_PLANE, shadowMatrix.GetRow(n));
@@ -179,9 +189,9 @@ void setTextureParams(GLenum mode, GLenum pnam, GLint param){
 }
 
 void buildShadows(GLenum mode){
-    setLightfv(GL_DIFFUSE, white);
-    setLightfv(GL_SPECULAR, white);
-    mat4 shadowMatrix = makeDepthMatrix();
+    setLightfv(GL_DIFFUSE, vec4(1.0f, 1.0f, 1.0f, 1.0f));
+    setLightfv(GL_SPECULAR, vec4(1.0f, 1.0f, 1.0f, 1.0f));
+    glm::mat4 shadowMatrix = projMatrix(0.5f);
     makeTextureCoord(GL_S, shadowMatrix, 0, GL_TEXTURE_GEN_S);
     makeTextureCoord(GL_T, shadowMatrix, 1, GL_TEXTURE_GEN_T);
     makeTextureCoord(GL_R, shadowMatrix, 2, GL_TEXTURE_GEN_R);
@@ -228,18 +238,6 @@ void render(){
     glFinish();
     glutSwapBuffers();
     glutPostRedisplay();
-}
-
-
-void resize(int w, int h) {
-    width = w;
-    height = h;
-    glPushMatrix();
-    glLoadIdentity();
-    float aspect = (float) width / height;
-    gluPerspective(45.0f, aspect, 1.0f, 100.0f);
-    glGetFloatv(GL_MODELVIEW_MATRIX, camMatrixProj);
-    glPopMatrix();
 }
 
 void keypress(unsigned char key, int xx, int yy) {
@@ -300,15 +298,14 @@ void keypress(unsigned char key, int xx, int yy) {
         upZ -= 0.1f;
     }
     glLoadIdentity();
-    gluLookAt(    eyeX, eyeY, eyeZ,
-                centerX, centerY,  centerZ,
-                upX, upY,  upZ);
+    gluLookAt(eyeX, eyeY, eyeZ,
+              centerX, centerY,  centerZ,
+              upX, upY,  upZ);
     glGetFloatv(GL_MODELVIEW_MATRIX, camMatrixView);
 }
 
 void handleAction(){
     glutDisplayFunc(render);
-    glutReshapeFunc(resize);
     glutKeyboardFunc(keypress);
     glutMainLoop();
 }
