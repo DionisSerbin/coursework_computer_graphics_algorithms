@@ -146,7 +146,7 @@ void loadmatr(GLenum mode, GLfloat *m){
     glLoadMatrixf(m);
 }
 
-void makeLightPoint(){
+void prepareLight(){
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     loadmatr(GL_PROJECTION, lightMatrixProj);
     loadmatr(GL_MODELVIEW, lightMatrixView);
@@ -156,7 +156,7 @@ void setLightfv(GLenum pname, GLfloat *p){
     glLightfv(GL_LIGHT1, pname, p);
 }
 
-void drawFromCamer(){
+void prepareCamAndSetLight(){
     glClear(GL_DEPTH_BUFFER_BIT);
     loadmatr(GL_PROJECTION, camMatrixProj);
     loadmatr(GL_MODELVIEW, camMatrixView);
@@ -216,7 +216,7 @@ void makeDisable(GLenum cap){
 
 void render(){
     GLenum mode = GL_TEXTURE_2D;
-    makeLightPoint();
+    prepareLight();
     glViewport(0, 0, shadowBuffer, shadowBuffer);
     setShadeModel(GL_FRONT, GL_FLAT);
     glColorMask(0, 0, 0, 0);
@@ -226,7 +226,7 @@ void render(){
                         shadowBuffer, shadowBuffer);
     setShadeModel(GL_BACK, GL_SMOOTH);
     glColorMask(1, 1, 1, 1);
-    drawFromCamer();
+    prepareCamAndSetLight();
     buildShadows(mode);
     makeDisable(GL_TEXTURE_GEN_S);
     makeDisable(GL_TEXTURE_GEN_T);
