@@ -1,6 +1,5 @@
 #define GL_SILENCE_DEPRECATION
 #include <GLUT/GLUT.h>
-#include "Maths.h"
 #include <iostream>
 #include <GLFW/glfw3.h>
 #include "glm/glm.hpp"
